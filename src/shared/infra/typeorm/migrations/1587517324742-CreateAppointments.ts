@@ -9,15 +9,15 @@ export default class CreateAppointments1587517324742
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'provider',
-            type: 'varchar',
-            isNullable: false,
+            name: 'provider_id',
+            type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'date',
@@ -25,16 +25,26 @@ export default class CreateAppointments1587517324742
             isNullable: false,
           },
           {
-            name: 'create_at',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
           {
-            name: 'update_at',
+            name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
           },
         ],
+        foreignKeys:[
+          {
+            name: 'AppointmentProvider',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['provider_id'],
+            onDelete: 'SET NULL',
+            onUpdate: 'CASCADE',
+          }
+        ]
       }),
     );
   }
